@@ -8,7 +8,7 @@ variable "rg_name" {
 # Región donde desplegar los recursos.
 variable "location" {
   description = "Región de Azure"             # Ejemplo: westeurope, northeurope, etc.
-  type        = string
+  type        = string                        # Nos solicitará introducir un valor, en el caso de no hacerlo, cogerá el valor por defecto de la siguiente línea. 
   default     = "westeurope"                  # Valor por defecto (Europa Oeste)
 }
 
