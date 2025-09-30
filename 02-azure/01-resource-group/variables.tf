@@ -1,14 +1,14 @@
 # Nombre del Resource Group
 variable "rg_name" {
   description = "Nombre del Resource Group"   
-  type        = string                        # Tipo de dato: texto.
+  type        = string                        # Tipo de dato: texto. Nos solicitará introducir un valor, en el caso de no hacerlo, cogerá el valor por defecto de la siguiente línea.
   default     = "rg-lab-terraform"            # Valor por defecto (puedes cambiarlo).
 }
 
 # Región donde desplegar los recursos.
 variable "location" {
   description = "Región de Azure"             # Ejemplo: westeurope, northeurope, etc.
-  type        = string                        # Nos solicitará introducir un valor, en el caso de no hacerlo, cogerá el valor por defecto de la siguiente línea. 
+  type        = string                        # Tipo de dato: texto. Nos solicitará introducir un valor, en el caso de no hacerlo, cogerá el valor por defecto de la siguiente línea. 
   default     = "westeurope"                  # Valor por defecto (Europa Oeste)
 }
 
