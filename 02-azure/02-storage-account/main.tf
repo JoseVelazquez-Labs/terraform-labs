@@ -1,51 +1,54 @@
+# -----------------------------------------
+# Terraform + provider de Azure (mínimo)
+# -----------------------------------------
 terraform {
-  required_version = ">= 1.5.0"
-
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 3.100"
+      version = "~> 3.0"  # Cualquier 3.x estable
     }
-    random = {
+    random = { # Genera valores aleatorios (nombres, contraseñas, etc.)
       source  = "hashicorp/random"
-      version = "~> 3.6"
+      version = "~> 3.0"
     }
   }
 }
 
 provider "azurerm" {
-  features {}
+  features {}  # Requerido por el provider de Azure
 }
 
-# Leemos el Resource Group existente (del Lab 01)
-data "azurerm_resource_group" "rg" {
-  name = var.rg_name
-}
-
-# Sufijo aleatorio para cumplir unicidad del nombre
+# ------------------------------------------------
+# Sufijo aleatorio para que el nombre sea único
+# (la Storage Account exige unicidad global)
+# ------------------------------------------------
 resource "random_string" "suffix" {
-  length  = 4
+  length  = 6
   upper   = false
   special = false
+  number  = true
 }
 
-# Storage Account (nombres: 3-24, minúsculas, sin guiones)
+# -----------------------------------------
+# Resource Group (dónde vivirá la Storage)
+# -----------------------------------------
+resource "azurerm_resource_group" "rg" {
+  name     = "rg-sa-minimo"
+  location = "westeurope"
+}
+
+# ------------------------------------------------
+# Storage Account mínima y segura por defecto
+# - nombre en minúsculas + números, 3-24 chars
+# - HTTPS only; replicación local (LRS)
+# ------------------------------------------------
 resource "azurerm_storage_account" "sa" {
-  name                     = lower(replace("${var.sa_prefix}${random_string.suffix.result}", "/[^a-z0-9]/", ""))
-  resource_group_name      = data.azurerm_resource_group.rg.name
-  location                 = data.azurerm_resource_group.rg.location
+  name                     = "stgmin${random_string.suffix.result}"   # p.ej. stgmin4f2k9a
+  resource_group_name      = azurerm_resource_group.rg.name
+  location                 = azurerm_resource_group.rg.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
-
-  allow_blob_public_access = false
-  min_tls_version          = "TLS1_2"
-
-  tags = var.tags
-}
-
-# Contenedor Blob
-resource "azurerm_storage_container" "container" {
-  name                  = var.container_name
-  storage_account_name  = azurerm_storage_account.sa.name
-  container_access_type = "private"
+  account_kind             = "StorageV2"
+  enable_https_traffic_only = true
+  allow_blob_public_access  = false
 }
