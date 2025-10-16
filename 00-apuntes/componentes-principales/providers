@@ -1,6 +1,6 @@
 
 ############################################################
-# 🧠 1️⃣ ¿Qué es un “provider”?
+# 1️⃣ ¿Qué es un provider?
 #
 # Un *provider* (proveedor) es el “conector” entre Terraform y un servicio.
 # Ejemplo: si quieres crear recursos en Azure o AWS, necesitas su provider.
@@ -11,7 +11,7 @@
 
 
 ############################################################
-# ⚙️ 2️⃣ BLOQUE TERRAFORM → “required_providers”
+# 2️⃣ BLOQUE TERRAFORM → “required_providers”
 #
 # Aquí indicamos QUÉ proveedores usaremos y sus versiones.
 # Terraform descargará automáticamente esos providers desde el
@@ -41,7 +41,7 @@ terraform {
 
 
 ############################################################
-# ☁️ 3️⃣ CONFIGURAR UN PROVIDER
+# 3️⃣ CONFIGURAR UN PROVIDER
 #
 # Una vez declarado, debemos “configurarlo”.
 # Aquí se definen credenciales, región o suscripción, etc.
@@ -72,7 +72,7 @@ provider "kubernetes" {
 
 
 ############################################################
-# 🧩 4️⃣ VARIAS CONFIGURACIONES DEL MISMO PROVIDER (ALIAS)
+# 4️⃣ VARIAS CONFIGURACIONES DEL MISMO PROVIDER (ALIAS)
 #
 # Puedes usar el mismo provider varias veces.
 # Ejemplo: trabajar en dos regiones o cuentas distintas de AWS.
@@ -106,7 +106,7 @@ resource "random_id" "suffix" {
 
 
 ############################################################
-# 📦 5️⃣ USO DE PROVIDERS EN MÓDULOS
+# 5️⃣ USO DE PROVIDERS EN MÓDULOS
 #
 # Cuando usas módulos, cada uno puede tener sus propios providers.
 # En el módulo “padre”, debes pasarle qué configuración usar.
@@ -128,7 +128,7 @@ module "network" {
 
 
 ############################################################
-# 🪣 6️⃣ ARCHIVO DE BLOQUEO (.terraform.lock.hcl)
+# 6️⃣ ARCHIVO DE BLOQUEO (.terraform.lock.hcl)
 #
 # Terraform guarda un archivo automático con los providers y sus versiones.
 # Este archivo asegura que todos los que usen el proyecto descarguen
@@ -146,7 +146,7 @@ module "network" {
 
 
 ############################################################
-# 🔐 7️⃣ CREDENCIALES Y AUTENTICACIÓN
+# 7️⃣ CREDENCIALES Y AUTENTICACIÓN
 #
 # Terraform puede usar muchas formas de autenticarse con cada servicio.
 # La recomendada: usar credenciales externas (CLI, entorno, perfiles).
@@ -170,7 +170,7 @@ module "network" {
 
 
 ############################################################
-# ⚡ 8️⃣ INICIALIZAR E INSTALAR PROVIDERS
+# 8️⃣ INICIALIZAR E INSTALAR PROVIDERS
 #
 # El comando “terraform init” descarga los providers necesarios.
 # Usa “-upgrade” si quieres buscar versiones más nuevas dentro de tu rango.
@@ -181,7 +181,7 @@ module "network" {
 
 
 ############################################################
-# 🪞 9️⃣ MIRRORS Y CACHÉ (AVANZADO)
+# 9️⃣ MIRRORS Y CACHÉ (AVANZADO)
 #
 # Si trabajas en entornos sin Internet o empresariales, puedes crear
 # un espejo local de providers. Esto se configura en el archivo del CLI,
@@ -202,7 +202,7 @@ module "network" {
 
 
 ############################################################
-# 💡 10️⃣ BUENAS PRÁCTICAS CON PROVIDERS
+# BUENAS PRÁCTICAS CON PROVIDERS
 ############################################################
 # ✅ Siempre fija versiones con “required_providers”.
 # ✅ No uses “latest”; eso rompe compatibilidad.
